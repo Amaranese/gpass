@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login</title>
+	<title>Register</title>
 
 	<style>
-		*
-		{
-			
-		}
 		body
 		{
 			background-image: url("fondo.jpg");
 		}
 		#form
 		{
-			text-align: center;
-			background-color: rgba(255, 255, 255, 0.90);
-
 			padding: 50px;
 			margin-left: auto;
    			margin-right: auto;
 			width: 400px;
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.90);
 		}
 		h1
 		{
@@ -30,25 +25,23 @@
 		}
 		.respuesta
 		{
-			text-align: center;
-			background-color: rgba(255, 255, 255, 0.5);
-
 			padding: 5px;
 			margin-left: auto;
    			margin-right: auto;
 			width: 200px;
 			color:white;
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.5);
 		}
 		.error
 		{
-			text-align: center;
-			background-color: rgba(255, 255, 255, 0.5);
-
 			padding: 5px;
 			margin-left: auto;
    			margin-right: auto;
 			width: 200px;
 			color:white;
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.5);
 		}
 	</style>
 
@@ -56,16 +49,19 @@
 </head>
 <body>
 
-	<h1>Login</h1>
+	<h1>Register</h1>
 
 	<div id="form">
+		<h3>Name:</h3>
+		<input id="name" type="text" placeholder="Name" style="text-align: center;">
+		<br>
 		<h3>Email:</h3>
 		<input id="email" type="email" placeholder="Email" style="text-align: center;">
 		<br>
 		<h3>Password:</h3>
 		<input id="password" type="password" placeholder="Password" style="text-align: center;">
 		<br><br>
-		<input type="button" onclick="Login()" value="Login">
+		<input type="button" onclick="Register()" value="Register">
 		<br><br>
 	</div>
 
@@ -73,27 +69,25 @@
 
 <script type="text/javascript">
 	
-	function Login(){
-
+	function Register(){
+		
+		var user = document.getElementById("name").value;
 		var email = document.getElementById("email").value;
 		var password = document.getElementById("password").value;
 		$(".error").remove();
 
 		$.ajax({
 		 	 method: "POST",
-		 	 url: "http://localhost:8888/Gpass/public/index.php/api/login",
+		 	 url: "http://localhost:8888/Gpass/public/index.php/api/register",
 		 	 data: { 
+		 	 	user: user,
 		 	 	email: email,
 		 	   	password: password 
 		 	 },
 		 	 success: function(response){
-
-		 	 	var response = jQuery.parseJSON(response);
-		 	 	localStorage.setItem("token",response.data);
-
-		 	 	var message = "Usuario Logueado";
-		 	 	window.location = "http://localhost:8888/Gpass/cliente/Categories.html";                   
-
+		 	 	var message = "Usuario Registrado";
+		 	 	window.location = "http://localhost:8888/Gpass/cliente/Categories.html";  
+		 	 	$('<div class="respuesta"/>').html(message).appendTo('body');
 		 	 },
 		
 		 	 error: function(response){

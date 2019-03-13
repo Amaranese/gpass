@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::apiResource('songs', 'SongController');
+Route::get('login/{user}/{pass}','LoginController@login');

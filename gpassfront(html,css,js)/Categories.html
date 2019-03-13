@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Categories</title>
+	<style>
+	*
+	{
+
+	}
+	body
+	{
+		background-image: url("fondo.jpg");
+	}
+	#form
+	{
+		text-align: center;
+		padding: 50px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 400px;
+		background-color: rgba(255, 255, 255, 0.90);
+	}
+	#Estructura
+	{
+		text-align: center;
+		padding: 10px;
+		margin-left: 35%;
+		margin-right: 35%;	
+		margin-top: inherit;	
+	}
+	h1
+	{
+		margin-top: 10%;
+		text-align: center;
+		color:yellow;
+	}
+	.respuesta
+	{
+		text-align: center;
+		background-color: rgba(255, 255, 255, 0.5);
+		padding: 5px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 200px;
+		color:white;
+	}
+	.tabla
+	{
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.5);
+
+			margin-left: auto;
+   			margin-right: auto;
+			padding: 10px;
+			color:white;
+		}
+		.btn
+		{
+			text-align: center;
+
+			padding: 5px;
+			margin-left: auto;
+   			margin-right: auto;
+		}	
+		.error
+		{
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.5);
+
+			padding: 5px;
+			margin-left: auto;
+   			margin-right: auto;
+			width: 200px;
+			color:white;
+		}
+	</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div style="text-align: right;">
+	<input class="btn" type="button" onclick="CerrarSesion()" value="Log out">
+	</div>
+	<div style="text-align: right;">
+	<input class="btn" type="button" onclick="IrPassword()" value="Go Passwords">
+	</div>
+	<h1>Categories</h1>
+
+	<div id="form">
+		<input id="name" type="name" placeholder="Category name" style="text-align: center;">
+		<br><br>
+		<input class="btn" type="button" onclick="CreateCategories()" value="Create">
+		<br><br>
+	</div>
+
+	<div id="Estructura">
+	<input class="btn" type="button" onclick="Allcategories()" value="Show All Categories">
+	</div>
+</body>
+
+<script type="text/javascript">
+
+	if(!localStorage.getItem("token"))
+	{
+		window.location = "http://localhost:8888/Gpass/cliente/login.html";
+	}
+	
+	function CreateCategories(){
+
+		var Authorization = localStorage.getItem("token"); 
+		var name = document.getElementById("name").value;
+		$(".error").remove();
+
+		$.ajax({
+		 	 method: "POST",
+		 	 url: "http://localhost:8888/Gpass/public/index.php/api/category",
+		 	 headers:
+		 	 {
+		 		"Authorization" : Authorization 
+		 	 },
+		 	 data: { 
+		 	 	categoryName: name
+		 	 },
+		 	 success: function(response){
+		 	 	var response = jQuery.parseJSON(response);
+		 		$('<div class="error"/>').html(response.message).appendTo('#form');
+		 		Allcategories();
+		 	 },
+		
+		 	 error: function(response){
+		 	 	var response = jQuery.parseJSON(response.responseText);
+		 	 	$('<div class="error"/>').html(response.message).appendTo('#form');
+		 	 }
+		});
+	}
+
+	function IrPassword()
+	{
+		window.location = "http://localhost:8888/Gpass/cliente/Contrase%C3%B1as.html";  
+	}
+
+	function Allcategories(){
+
+		var Authorization = localStorage.getItem("token"); 
+		$(".error").remove();
+		$("#tabla").remove();
+
+
+		$.ajax({
+		 	method: "GET",
+		 	url: "http://localhost:8888/Gpass/public/index.php/api/category",
+		 	headers:
+		 	{
+		 		"Authorization" : Authorization 
+		 	},
+		 	success: function(response){
+				
+				var response = jQuery.parseJSON(response);
+
+				if(document.getElementById("tabla") == null)
+				{
+					$('<table id="tabla" />').html("").appendTo('#Estructura');
+					$('<th id="filaNombre" class="respuesta"/>').html("Category name").appendTo('#tabla');
+					$('<th id="filaEditar" class="respuesta"/>').html("Edit").appendTo('#tabla');
+					$('<th id="filaBorrar" class="respuesta"/>').html("Delete").appendTo('#tabla');
+				}
+				
+				for (i = 0; i < response.data.length; i++) {
+				  	$('<div/><br>').html(response.data[i].name).appendTo('#filaNombre');
+				  	$('<br>').html("").appendTo('#filaEditar');
+				  	$('<input id="name" type="text"  class="edit" placeholder="Nuevo Nombre"> <input type="button" class="btn" onclick="EditCategories(this)" value="Editar">').html("").appendTo('#filaEditar').attr("id", response.data[i].name);
+				  	$('<br>').html("").appendTo('#filaEditar');
+				  	$('<br><input type="button" onclick="Delete(this)" class="btn" value="Borrar"><br>').html("").appendTo('#filaBorrar').attr("id", response.data[i].name);
+				};
+		 	},
+		
+		 	error: function(response){
+		 		var response = jQuery.parseJSON(response.responseText);
+		 		$('<div class="error"/>').html(response.message).appendTo('body');
+		 	}
+		});
+	}
+
+	function EditCategories(button){
+
+		var Authorization = localStorage.getItem("token"); 
+		var text = document.getElementById(button.id);
+		$(".error").remove();
+
+		console.log(text);
+
+    	$.ajax({
+
+		 	method: "POST",
+		 	url: "http://localhost:8888/Gpass/public/index.php/api/category/" + button.id,
+		 	headers:
+		 	{
+		 		"Authorization" : Authorization 
+		 	},
+		 	data: { 
+		 		newCategoryName: text.value,
+		 		"_method" : "PUT" 
+		 	},
+		 	success: function(response){
+		 		var response = jQuery.parseJSON(response);
+		 		$('<div class="error"/>').html(response.message).appendTo('#Estructura');
+		 		Allcategories();
+		 	},
+		 	error: function(response){
+		 		var response = jQuery.parseJSON(response.responseText);
+		 	 	$('<div class="error"/>').html(response.message).appendTo('#Estructura');
+		 	 }
+		 });
+    }
+	function Delete(button) {
+		var Authorization = localStorage.getItem("token");
+		$(".error").remove(); 
+		$.ajax({
+			method: "DELETE",
+		 	url: "http://localhost:8888/Gpass/public/index.php/api/category/" + button.id,
+		 	headers:
+		 	{
+		 		"Authorization" : Authorization 
+		 	},
+		 	success: function(response){
+		 		var response = jQuery.parseJSON(response);
+		 		$('<div class="error"/>').html(response.message).appendTo('#Estructura');
+		 		Allcategories();
+		 	},
+		 	error: function(response){
+		 		var response = jQuery.parseJSON(response.responseText);
+		 	 	$('<div class="error"/>').html(response.message).appendTo('#Estructura');
+		 	 	Allcategories();
+		 	 }
+		 });		
+	}
+	function CerrarSesion()
+	{
+		console.log("CerrarSesion");
+		localStorage.clear();
+		window.location = "http://localhost:8888/Gpass/cliente/login.html";  
+	}
+</script>
+</html>

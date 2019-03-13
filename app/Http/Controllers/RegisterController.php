@@ -7,27 +7,30 @@ use App\User;
 
 class RegisterController extends Controller
 {
-   public function register (Request $request)
+    public function register (Request $request)
     {
         if (!isset($_POST['user']) or !isset($_POST['email']) or !isset($_POST['password'])) 
         {
-            return $this->error(400, 'Todos los campos tienen que estar rellenos, en caso de que tenga uno vacio rellenelo por favor');
+            return $this->error(400, 'No puede haber campos vacios');
         }
+
         $user = $this->deleteAllSpace($_POST['user']);
         $email = $_POST['email'];
         $password = $_POST['password'];
+
         if($this->checkPassword($password))
         {
-            return $this->error(400,'La contraseña ha de tener mas de 8 caracteres');
+            return $this->error(400,'La contraseña tiene que ser superior a 8 carecteres');
         }
         if($this->checkEmail($email))
         {
-            return $this->error(400,'El email introducido no es valido, pruebe con otro correo');
+            return $this->error(400,'El email no es valido');
         }
         if($this->checkUserExist($email))
         {
-            return $this->error(400,'eL usuario que usted ha introducido ya existe');
+            return $this->error(400,'El usuario ya existe');
         }
+     
         if (!empty($user) && !empty($email) && !empty($password))
         {
             $users = new User();
@@ -36,13 +39,14 @@ class RegisterController extends Controller
             $users->email = $email;
             $users->save();
 
-            return $this->success('El usuario ha sido registrado de forma exitosa',"");                 
+            return $this->success('Usuario registrado',"");                 
         }
         else
         {
             return $this->error(400,'No puede haber campos vacios');
         }    
     }
+
     public function checkPassword($password)
     {
         if(strlen($password) < 8)
@@ -51,6 +55,7 @@ class RegisterController extends Controller
         }
         return false;
     }
+
     public function checkEmail($email)
     {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -59,9 +64,11 @@ class RegisterController extends Controller
         }
         return false;
     }
+
     public function checkUserExist($email)
     {
         $userData = User::where('email',$email)->first();
+
         if(!is_null($userData))
         {
             return true;

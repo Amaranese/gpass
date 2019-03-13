@@ -1,14 +1,17 @@
 <?php
+
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
+
 class Password extends Model
 {
-	public function user()
+    public function user()
     {
-    	return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User');
     }
     public function category()
     {
-    	return $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Category');
     }
 }

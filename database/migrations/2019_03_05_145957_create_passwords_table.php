@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreatePasswordsTable extends Migration
 {
     /**
@@ -22,7 +24,9 @@ class CreatePasswordsTable extends Migration
             $table->engine = 'InnoDB';
             $table->timestamps();
         });
+
     }
+
     /**
      * Reverse the migrations.
      *
