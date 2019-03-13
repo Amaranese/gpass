@@ -1,12 +1,10 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 class CreateLoginsTable extends Migration
 {
-    /**
+/**
      * Run the migrations.
      *
      * @return void
@@ -18,7 +16,6 @@ class CreateLoginsTable extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
