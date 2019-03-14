@@ -7,7 +7,7 @@ use App\Password;
 
 class PasswordController extends Controller
 {
-    const SECRETKEY = "JOAQUIN";
+    const SECRETKEY = "Zv80lG50XRYfDrUm5SI7";
     public function index()
     {
         

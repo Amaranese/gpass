@@ -14,7 +14,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
-    protected $key = 'JOAQUIN';
+    protected $key = 'Zv80lG50XRYfDrUm5SI7';
 
     protected function error($code, $message)
     {
@@ -96,7 +96,7 @@ class Controller extends BaseController
 
     protected function codificar($dato) {
         $resultado = $dato;
-        $arrayLetras = array('J', 'O', 'A', 'Q', 'U', 'I', 'N');
+        $arrayLetras = array('K', 'P', 'B', 'R', 'V', 'J', 'O');
         $limite = count($arrayLetras) - 1;
         $num = mt_rand(0, $limite);
         for ($i = 1; $i <= $num; $i++) {
@@ -109,7 +109,7 @@ class Controller extends BaseController
     protected function decodificar($dato) {
         $resultado = base64_decode($dato);
         list($resultado, $letra) = explode('+', $resultado);
-        $arrayLetras = array('J', 'O', 'A', 'Q', 'U', 'I', 'N');
+        $arrayLetras = array('K', 'P', 'B', 'R', 'V', 'J', 'O');
         for ($i = 0; $i < count($arrayLetras); $i++) {
             if ($arrayLetras[$i] == $letra) {
                 for ($j = 1; $j <= $i; $j++) {
