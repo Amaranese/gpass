@@ -36,7 +36,7 @@ class LoginController extends Controller
         }
         else
         {
-            return $this->error(400, 'Los datos no son correctos');
+            return $this->error(400, 'Los datos son incorrectos, por favor pruebe otra vez');
         }
     }
 

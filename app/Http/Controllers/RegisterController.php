@@ -20,11 +20,11 @@ class RegisterController extends Controller
 
         if($this->checkPassword($password))
         {
-            return $this->error(400,'La contraseña tiene que ser superior a 8 carecteres');
+            return $this->error(400,'La contraseña tiene que ser superior a 8 carecteres, por favor introduzca una contraseña de mas de 8 caracteres');
         }
         if($this->checkEmail($email))
         {
-            return $this->error(400,'El email no es valido');
+            return $this->error(400,'El email no es valido, pruebe otra vez');
         }
         if($this->checkUserExist($email))
         {
@@ -43,7 +43,7 @@ class RegisterController extends Controller
         }
         else
         {
-            return $this->error(400,'No puede haber campos vacios');
+            return $this->error(400,'No puede haber campos vacios, por favor rellene todos los campos ');
         }    
     }
 

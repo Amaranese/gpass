@@ -25,14 +25,14 @@ class PasswordController extends Controller
             
             if(count($passwordArray) == 0)
             {
-                return $this->error(400, "No existen contraseñas");
+                return $this->error(400, "Las contraseñas introducidas son inexistentes");
             }
 
             return $this->success('Contraseñas creadas', $passwordArray);
             
         }else
         {
-            return $this->error(400, "Acceso denegado");
+            return $this->error(400, "No tienes acceso");
         }
     }
 
@@ -53,7 +53,7 @@ class PasswordController extends Controller
 
             if(!$this->IsUsedName($user_id,$newCategory_idName))
             {
-                 return $this->error(400, 'ya existe una contraeña con ese nombre');
+                 return $this->error(400, 'ya existe una contraeña con ese nombre, pruebe otra vez');
             }
 
             $password = new Password();
@@ -67,7 +67,7 @@ class PasswordController extends Controller
 
         }else {
 
-            return $this->error(400, "Acceso denegado");
+            return $this->error(400, "No tienes acceso");
         }
             
     }
@@ -99,7 +99,7 @@ class PasswordController extends Controller
             {
                 if(!$this->IsUsedName($userData->id,$this->deleteAllSpace($request->newName)))
                 {
-                     return $this->error(400, 'Ya existe esta contraseña');
+                     return $this->error(400, 'Ya existe esta contraseña, pruebe otra vez');
                 }
 
                 $password->title = $this->deleteAllSpace($request->newName);
@@ -118,7 +118,7 @@ class PasswordController extends Controller
             return $this->success('Contraseña modificado', $password);
         }else
         {
-            return $this->error(400, "Acceso denegado");
+            return $this->error(400, "No tienes acceso");
         }
     }
    
@@ -136,13 +136,13 @@ class PasswordController extends Controller
 
             }else
             {
-                return $this->error(400, "No existe esta contraseña");
+                return $this->error(400, "La contraseña introducida es inexistente");
             }
 
 
        }else
        {
-            return $this->error(400, "Acceso denegado");
+            return $this->error(400, "No tienes acceso");
        }           
     }
 }
