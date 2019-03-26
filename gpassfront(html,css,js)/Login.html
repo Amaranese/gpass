@@ -81,7 +81,7 @@
 
 		$.ajax({
 		 	 method: "POST",
-		 	 url: "http://localhost:8888/Gpass/public/index.php/api/login",
+		 	 url: "http://localhost:8888/gpass2/public/index.php/api/login",
 		 	 data: { 
 		 	 	email: email,
 		 	   	password: password 
@@ -92,7 +92,7 @@
 		 	 	localStorage.setItem("token",response.data);
 
 		 	 	var message = "Usuario Logueado";
-		 	 	window.location = "http://localhost:8888/Gpass/cliente/Categories.html";                   
+		 	 	window.location = "http://localhost:8888/gpass2/gpassfront(html,css,js)/Categories.html";                   
 
 		 	 },
 		

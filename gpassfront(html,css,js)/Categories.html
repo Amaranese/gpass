@@ -102,7 +102,7 @@
 
 	if(!localStorage.getItem("token"))
 	{
-		window.location = "http://localhost:8888/Gpass/cliente/login.html";
+		window.location = "http://localhost:8888/gpass2/gpassfront(html,css,js)/login.html";
 	}
 	
 	function CreateCategories(){
@@ -113,7 +113,7 @@
 
 		$.ajax({
 		 	 method: "POST",
-		 	 url: "http://localhost:8888/Gpass/public/index.php/api/category",
+		 	 url: "http://localhost:8888/gpass2/public/index.php/api/category",
 		 	 headers:
 		 	 {
 		 		"Authorization" : Authorization 
@@ -136,7 +136,7 @@
 
 	function IrPassword()
 	{
-		window.location = "http://localhost:8888/Gpass/cliente/Contrase%C3%B1as.html";  
+		window.location = "http://localhost:8888/gpass2/gpassfront(html,css,js)/Contrase%C3%B1as.html";  
 	}
 
 	function Allcategories(){
@@ -148,7 +148,7 @@
 
 		$.ajax({
 		 	method: "GET",
-		 	url: "http://localhost:8888/Gpass/public/index.php/api/category",
+		 	url: "http://localhost:8888/gpass2/public/index.php/api/category",
 		 	headers:
 		 	{
 		 		"Authorization" : Authorization 
@@ -192,7 +192,7 @@
     	$.ajax({
 
 		 	method: "POST",
-		 	url: "http://localhost:8888/Gpass/public/index.php/api/category/" + button.id,
+		 	url: "http://localhost:8888/gpass2/public/index.php/api/category/" + button.id,
 		 	headers:
 		 	{
 		 		"Authorization" : Authorization 
@@ -217,7 +217,7 @@
 		$(".error").remove(); 
 		$.ajax({
 			method: "DELETE",
-		 	url: "http://localhost:8888/Gpass/public/index.php/api/category/" + button.id,
+		 	url: "http://localhost:8888/gpass2/public/index.php/api/category/" + button.id,
 		 	headers:
 		 	{
 		 		"Authorization" : Authorization 
@@ -238,7 +238,7 @@
 	{
 		console.log("CerrarSesion");
 		localStorage.clear();
-		window.location = "http://localhost:8888/Gpass/cliente/login.html";  
+		window.location = "http://localhost:8888/gpass2/gpassfront(html,css,js)/login.html";  
 	}
 </script>
 </html>

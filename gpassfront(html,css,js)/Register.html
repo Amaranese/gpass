@@ -78,7 +78,7 @@
 
 		$.ajax({
 		 	 method: "POST",
-		 	 url: "http://localhost:8888/Gpass/public/index.php/api/register",
+		 	 url: "http://localhost:8888/gpass2/public/index.php/api/register",
 		 	 data: { 
 		 	 	user: user,
 		 	 	email: email,
@@ -86,7 +86,7 @@
 		 	 },
 		 	 success: function(response){
 		 	 	var message = "Usuario Registrado";
-		 	 	window.location = "http://localhost:8888/Gpass/cliente/Categories.html";  
+		 	 	window.location = "http://localhost:8888/gpass2/gpassfront(html,css,js)/Categories.html";  
 		 	 	$('<div class="respuesta"/>').html(message).appendTo('body');
 		 	 },
 		
